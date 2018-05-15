@@ -1,0 +1,48 @@
+{
+  "name": "ziyou",
+  "version": "1.0.1",
+  "description": "ziyou for react",
+  "main": "index.js",
+  "scripts": {
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KeithWang1986/ziyou.git"
+  },
+  "keywords": [
+    "ziyou",
+    "react"
+  ],
+  "author": "KeithWang1986",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KeithWang1986/ziyou/issues"
+  },
+  "homepage": "https://github.com/KeithWang1986/ziyou#readme",
+  "dependencies": {
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-react-app": "^3.1.1",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "mini-css-extract-plugin": "^0.4.0",
+    "node-sass": "^4.9.0",
+    "object-assign": "^4.1.1",
+    "optimize-css-assets-webpack-plugin": "^4.0.1",
+    "sass-loader": "^7.0.1",
+    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.8.3",
+    "whatwg-fetch": "^2.0.4"
+  }
+}
