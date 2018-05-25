@@ -2,35 +2,39 @@ const resolveApp = require('./common');
 const path = require('path');
 const webpack = require('webpack');
 
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+const shouldUseSourceMap = "eval-source-map";
 
 const config = {
-    devtool: 'cheap-module-source-map',
+    // Don't attempt to continue if there are any errors.
+    bail: true,
+    devtool: shouldUseSourceMap,
     mode: 'development',
     entry: {
-        "index": resolveApp("src/index.js")
+        "ziyou": resolveApp("src/index.js")
     },
     output: {
+        filename: '[name].js',
         path: resolveApp('dist'),
-        filename: '[name].js'
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     externals: [
         {
             react: {
                 root: 'React',
-                commonjs2: './react',
-                commonjs: ['./react'],
-                amd: 'react',
+                commonjs2: '../../app/node_modules/react',
+                commonjs: ['../../app/node_modules/react'],
+                amd: 'react'
             },
         },
         {
             'react-dom': {
                 root: 'ReactDOM',
-                commonjs2: './react-dom',
-                commonjs: ['./react-dom'],
-                amd: 'react-dom',
+                commonjs2: '../../app/node_modules/react-dom',
+                commonjs: ['../../app/node_modules/react-dom'],
+                amd: 'react-dom'
             },
         },
     ],
@@ -77,23 +81,16 @@ const config = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify('development')
+        }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
             chunkFilename: "[id].css"
         })
-        // new webpack.DllReferencePlugin({
-        //     manifest: path.join(resolveApp('www/js/dll'), 'vendor-manifest.json') // 指定manifest.json，也就是上面生成的。
-        // })
     ],
     optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true // set to true if you want JS source maps
-            }),
-            new OptimizeCSSAssetsPlugin({})
-        ]
+        minimize: false
     },
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

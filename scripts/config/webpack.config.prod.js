@@ -2,12 +2,10 @@ const resolveApp = require('./common');
 const path = require('path');
 const webpack = require('webpack');
 
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const shouldUseSourceMap = false;
-//const shouldUseSourceMap = "cheap-module-source-map";
+//const shouldUseSourceMap = "eval-source-map";
 
 const config = {
     // Don't attempt to continue if there are any errors.
@@ -15,27 +13,29 @@ const config = {
     devtool: shouldUseSourceMap,
     mode: 'production',
     entry: {
-        "index": resolveApp("src/index.js")
+        "ziyou": resolveApp("src/index.js")
     },
     output: {
+        filename: '[name].min.js',
         path: resolveApp('dist'),
-        filename: '[name].min.js'
+        libraryTarget: 'umd',
+        umdNamedDefine: true
     },
     externals: [
         {
             react: {
                 root: 'React',
-                commonjs2: './react',
-                commonjs: ['./react'],
-                amd: 'react',
+                commonjs2: '../../app/node_modules/react',
+                commonjs: ['../../app/node_modules/react'],
+                amd: 'react'
             },
         },
         {
             'react-dom': {
                 root: 'ReactDOM',
-                commonjs2: './react-dom',
-                commonjs: ['./react-dom'],
-                amd: 'react-dom',
+                commonjs2: '../../app/node_modules/react-dom',
+                commonjs: ['../../app/node_modules/react-dom'],
+                amd: 'react-dom'
             },
         },
     ],
@@ -92,14 +92,7 @@ const config = {
         // Minify the code.        
     ],
     optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
-                parallel: true,
-                sourceMap: true // set to true if you want JS source maps
-            }),
-            new OptimizeCSSAssetsPlugin({})
-        ]
+        minimize: true
     },
     // Some libraries import Node modules but don't use them in the browser.
     // Tell Webpack to provide empty mocks for them so importing them works.

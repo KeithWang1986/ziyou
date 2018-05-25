@@ -1,1 +1,0 @@
-{"version":3,"file":"index.css","sources":["webpack:///./src/index.css","webpack:///./src/index2.scss"],"sourcesContent":["body{\r\n    font-size: 64px;\r\n}","body {\n  font-size: 68px; }\n\nhtml {\n  font-size: 90px;\n  background-color: red; }\n"],"mappings":"AAAA;AACA;AACA;ACFA;AACA;AACA;AACA;AACA;AACA;;","sourceRoot":""}

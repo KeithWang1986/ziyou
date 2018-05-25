@@ -1,11 +1,13 @@
 {
   "name": "ziyou",
-  "version": "1.0.1",
+  "version": "1.0.25",
   "description": "ziyou for react",
   "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "start": "node scripts/start.js",
-    "build": "node scripts/build.js"
+    "build": "node scripts/build.js",
+    "install": "node scripts/install.js"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,14 @@
     "url": "https://github.com/KeithWang1986/ziyou/issues"
   },
   "homepage": "https://github.com/KeithWang1986/ziyou#readme",
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
+  },
+  "deprecated": false,
+  "bundleDependencies": false,
   "dependencies": {
+    "moment": "^2.22.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
@@ -34,15 +43,16 @@
     "babel-preset-react-app": "^3.1.1",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
+    "fs-extra": "^6.0.1",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
     "object-assign": "^4.1.1",
-    "optimize-css-assets-webpack-plugin": "^4.0.1",
     "sass-loader": "^7.0.1",
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.8.3",
+    "webpack-node-externals": "^1.7.2",
     "whatwg-fetch": "^2.0.4"
   }
 }

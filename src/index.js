@@ -1,18 +1,6 @@
-import './index.css';
-import './index2.scss';
+import { Controller } from './Frame/Controller.js';
+import { RequestMapping } from './Frame/RequestMapping.js';
+import { router } from './Frame/Router.js';
 
-import * as React from 'react';
-import ReactDOM from 'react-dom';
-
-export class BBB extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-            <div>123</div>
-        );
-    }
-}
+export { Controller, RequestMapping, router }
 
