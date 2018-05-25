@@ -1,6 +1,6 @@
 {
   "name": "ziyou",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "ziyou for react",
   "main": "index.js",
   "typings": "index.d.ts",

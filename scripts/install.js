@@ -71,8 +71,8 @@ async function prepend(file, string) {
 async function HandleFiles() {
     await Promise.all(
         [
-            '../dist/index.js',
-            '../dist/index.min.js',
+            '../dist/ziyou.js',
+            '../dist/ziyou.min.js',
         ].map(file => { prepend(path.resolve(__dirname, file), "install"), Log(`> ${file}`, colors.magenta) }),
     );
 }
