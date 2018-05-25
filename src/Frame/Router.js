@@ -51,7 +51,7 @@ class Router {
         }
     }
 
-    GetRequestMappingKeys(controllerName, action) {
+    GetRequestMapping(controllerName, action) {
         let mappingController = this.mappings[controllerName];
         if (!mappingController) {
             return;
@@ -60,7 +60,7 @@ class Router {
         if (!requestMappingPathWidthDescriptor) {
             return;
         }
-        return requestMappingPathWidthDescriptor.keys;
+        return requestMappingPathWidthDescriptor;
     }
 
     Dispatch(controllerName, action, args) {
@@ -78,42 +78,46 @@ class Router {
         }
         for (let i = 0; i < allControllers.length; i++) {
             let controller = allControllers[i];
-            let sender = { args: {}, result: {} };
-            if (args) {
-                sender.args = Object.assign(args);
-            }
-            let isEqual = true;
-            if (requestMappingPathWidthDescriptor.keys.length > 0) {
-                for (let j = 0; j < requestMappingPathWidthDescriptor.keys.length; j++) {
-                    let key = requestMappingPathWidthDescriptor.keys[j];
-                    let val = args[key];
-                    if (controller[key] != val) {
-                        isEqual = false;
-                        break;
-                    }
-                }
-            }
-            if (isEqual) {
-                if (requestMappingPathWidthDescriptor.dataHandle && this.dataHandler) {
-                    (new Promise((resolve, reject) => {
-                        sender.resolve = resolve;
-                        sender.reject = reject;
-                        this.dataHandler(controllerName, action, sender);
-                    })).then((result) => {
-                        sender.result = result;
-                        delete sender.resolve;
-                        delete sender.reject;
-                        requestMappingPathWidthDescriptor.descriptor.value.call(controller, sender);
-                    }).catch((err) => {
-                        console.error(err);
-                    });
-                }
-                else {
-                    requestMappingPathWidthDescriptor.descriptor.value.call(controller, sender);
+            this._Dispatch(controller, requestMappingPathWidthDescriptor, args);
+        }
+    }
+
+    _Dispatch(controller, requestMappingPathWidthDescriptor, args) {
+        let sender = { args: {}, result: {} };
+        if (args) {
+            sender.args = Object.assign(args);
+        }
+        let isEqual = true;
+        if (requestMappingPathWidthDescriptor.keys.length > 0) {
+            for (let j = 0; j < requestMappingPathWidthDescriptor.keys.length; j++) {
+                let key = requestMappingPathWidthDescriptor.keys[j];
+                let val = args[key];
+                if (controller[key] != val) {
+                    isEqual = false;
+                    break;
                 }
             }
         }
-    }
+        if (isEqual) {
+            if (requestMappingPathWidthDescriptor.dataHandle && this.dataHandler) {
+                (new Promise((resolve, reject) => {
+                    sender.resolve = resolve;
+                    sender.reject = reject;
+                    this.dataHandler(requestMappingPathWidthDescriptor.controllerName, requestMappingPathWidthDescriptor.action, sender);
+                })).then((result) => {
+                    sender.result = result;
+                    delete sender.resolve;
+                    delete sender.reject;
+                    requestMappingPathWidthDescriptor.descriptor.value.call(controller, sender);
+                }).catch((err) => {
+                    console.error(err);
+                });
+            }
+            else {
+                requestMappingPathWidthDescriptor.descriptor.value.call(controller, sender);
+            }
+        }
+    }    
 }
 
 const router = new Router();

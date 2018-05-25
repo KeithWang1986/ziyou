@@ -9,12 +9,13 @@ function GenerateUUID() {
 function DispatchDefaultAction(name, defaultAction, obj) {
     if (defaultAction) {
         let args = {};
-        let keys = router.GetRequestMappingKeys(name, defaultAction);
+        let requestMappingPathWidthDescriptor = router.GetRequestMapping(name, defaultAction);
+        let keys = requestMappingPathWidthDescriptor.keys;
         for (let i = 0; i < keys.length; i++) {
             let key = keys[i];
             args[key] = obj[key];
         }
-        router.Dispatch(name, defaultAction, args);
+        router._Dispatch(obj, requestMappingPathWidthDescriptor, args);
     }
 }
 
